@@ -1,7 +1,7 @@
 /**
  * Yeah, the code is kinda ugly. 90% of this was typed on an iPad though.
  * ----------------------------------------------------------------------
- * //I don't actually know how this works. Just guessing.
+ * I don't actually know how this works. Just guessing.
  * 
  * @method color
  * @param  {Number} [redValue] A value from 0 to 255
@@ -20,6 +20,38 @@ function color(red, green, blue) {
 		g: green,
 		b: blue
 	};
+}
+
+/**
+ * @method rgbToColor
+ * @param {String} [rgbString] An rgb() string
+ * @return {color} An rgb() string converted to color()
+ * @example
+ * var divColor = div1.style.backgroundColor;
+ * playerObject.f = rgbToColor(divColor)
+ * 
+*/
+
+function rgbToColor(rgb) {
+	var s1 = rgb.replace("rgb(", "");
+	var s2 = s1.replace(")", "");
+	var sa = s2.split(", ");
+	return color(sa[0], sa[1], sa[2]);
+}
+
+/**
+ * @method colorToRgb
+ * @param {color} [colorObject] A color() object
+ * @return {String} A color() object converted to an rgb() string
+ * @example
+ * playerObject.f = color(0, 255, 0);
+ * div1.style.backgroundColor = colorToRgb(playerObject.f);
+ * 
+*/
+
+
+function colorToRgb(color) {
+	return "rgb(" + color.r + ", " + color.g + ", " + color.b + ")";
 }
 
 /**
