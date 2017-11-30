@@ -1,6 +1,19 @@
-function start() {
-	//window.setInterval(draw, window.performance.now());
-}
+/**
+ * Yeah, the code is kinda ugly. 90% of this was typed on an iPad though.
+ * ----------------------------------------------------------------------
+ * //I don't actually know how this works. Just guessing.
+ * 
+ * @method color
+ * @param  {Number} [redValue] A value from 0 to 255
+ * @param  {Number} [greenValue] A value from 0 to 255
+ * @param  {Number} [blueValue] A value from 0 to 255
+ * @return {Object} An object with properties r, g, and b
+ * @example
+ * var fillColor = color(0, 255, 0);
+ * playerObject.f = fillColor;
+ * 
+*/
+
 function color(red, green, blue) {
 	return {
 		r: red,
@@ -8,6 +21,13 @@ function color(red, green, blue) {
 		b: blue
 	};
 }
+
+/*
+ * @method keypress
+ * 
+ * 
+*/
+
 function keypress(p) { 
 	window.addEventListener("keydown", function(e) {
 		if(e.which == p.k) {
@@ -118,42 +138,3 @@ object.prototype.inherit = function(p) {
 		this.t = (p.v[7] == 1) ? p.o.t : (p.v[7] == 2) ? this.t + p.o.t : this.t;
 	}
 };
-
-var obj1 = new object({
-	x: 50,
-	y: 50,
-	w: 50,
-	h: 50,
-	f: color(0, 255, 0),
-	s: color(0, 0, 0),
-	t: 1
-});
-
-var div1 = new object({
-	el: "div-1",
-	x: 75,
-	w: 75,
-	f: color(0, 0, 255),
-	c: color(255, 127, 0),
-	t: 1
-});
-
-div1.inherit({
-	o: obj1,
-	v: [2, 1, 0, 1, 0, 1, 2]
-});
-
-div1.button({
-	t: function() {
-		div1.f = color(255, 0, 0);
-		obj1.x += 1;
-	},
-	f: function() {
-		div1.f = color(0, 0, 255);
-	}
-});
-
-obj1.create();
-div1.create();
-
-
