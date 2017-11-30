@@ -1,7 +1,9 @@
 /**
  * Yeah, the code is kinda ugly. 90% of this was typed on an iPad though.
- * ----------------------------------------------------------------------
  * I don't actually know how this works. Just guessing.
+ * ----------------------------------------------------------------------
+ * 
+ * The color method takes 3 parameters: red, green, and blue. It then returns those values as an object.
  * 
  * @method color
  * @param  {Number} [redValue] A value from 0 to 255
@@ -23,6 +25,8 @@ function color(red, green, blue) {
 }
 
 /**
+ * The rgbToColor method converts "rgb(r, g, b)" to color(r, g, b).
+ * 
  * @method rgbToColor
  * @param {String} [rgbString] An rgb() string
  * @return {color} An rgb() string converted to color()
@@ -40,6 +44,8 @@ function rgbToColor(rgb) {
 }
 
 /**
+ * The colorToRgb converts color(r, g, b) to "rgb(r, g, b)".
+ * 
  * @method colorToRgb
  * @param {color} [colorObject] A color() object
  * @return {String} A color() object converted to an rgb() string
@@ -55,6 +61,8 @@ function colorToRgb(color) {
 }
 
 /**
+ *The keyPress method is a greatly simplified version of the addEventListener function.
+ *
  * @method keypress
  * @param {Number} [keyCode] Key to be pressed
  * @param {Function} [ifTrue] If key is pressed
@@ -85,6 +93,18 @@ function keypress(p) {
 		});
 	}
 }
+
+/**
+ * The object method creates the data for a new DOM element, and it is needed in order to use the other functions in the library.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+*/
+
 function object(p) {
 	if(p.el === undefined) {
     	this.el = document.createElement("div");
@@ -98,37 +118,25 @@ function object(p) {
 	    this.t = (p.t === undefined) ? 1 : p.t;
 	}else{
 		this.el = document.getElementById(p.el);
-		var fso = this.el.style.backgroundColor;
-		var fs1 = fso.slice(1, 4);
-		var fs2 = fs1.slice(-1, -2);
-		var fa = fs2.split(", ");
-		var cso = this.el.style.color;
-		var cs1 = cso.slice(1, 4);
-		var cs2 = cs1.slice(-1, -2);
-		var ca = cs2.split(", ");
-		var sso = this.el.style.borderColor;
-		var ss1 = sso.slice(1, 4);
-		var ss2 = ss1.slice(-1, -2);
-		var sa = ss2.split(", ");
 		this.x = (p.x === undefined) ? this.el.style.left : p.x;
 		this.y = (p.y === undefined) ? this.el.style.top : p.y;
 		this.w = (p.w === undefined) ? this.el.style.width : p.w;
 		this.h = (p.h === undefined) ? this.el.style.height : p.h;
-		this.f = (p.f === undefined) ? color(fa[0], fa[1], fa[2]) : p.f;
-		this.c = (p.c === undefined) ? color(ca[0], ca[1], ca[2]) : p.c;
-		this.s = (p.s === undefined) ? color(sa[0], sa[1], sa[2]) : p.s;
+		this.f = (p.f === undefined) ? rgbToColor(this.el.style.backgorundColor) : p.f;
+		this.c = (p.c === undefined) ? rgbToColor(this.el.style.color) : p.c;
+		this.s = (p.s === undefined) ? rgbToColor(this.el.style.borderColor) : p.s;
 		this.t = (p.t === undefined) ? this.el.style.borderWidth : p.t;
 	}
 }
 object.prototype.create = function() {
 	this.el.style.position = (this.el.style.positon === undefined) ? "absolute" : this.el.style.position;
-	this.el.style.backgroundColor = "rgb(" + this.f.r + ", " + this.f.g + ", " + this.f.b + ")";
-	this.el.style.borderColor = "rgb(" + this.s.r + ", " + this.s.g + ", " + this.s.b + ")";
+	this.el.style.backgroundColor = colorToRgb(this.f);
+	this.el.style.borderColor = colorToRgb(this.s);
 	if(this.c !== undefined) {
-		this.el.style.color = "rgb(" + this.c.r + ", " + this.c.g + ", " + this.c.b + ")";
+		this.el.style.color = colorToRgb(this.c);
 	}
 	this.el.style.borderWidth = this.t + "px";
-	this.el.style.borderStyle = "solid";
+	this.el.style.borderStyle = (this.el.style.borderStyle === undefined) ? "solid" : this.el.style.borderStyle;
 	this.el.style.left = this.x + "px";
 	this.el.style.top = this.y + "px";
 	this.el.style.width = this.w + "px";
