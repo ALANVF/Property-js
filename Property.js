@@ -96,9 +96,31 @@ function keypress(p) {
 
 /**
  * The object method creates the data for a new DOM element, and it is needed in order to use the other functions in the library.
+ * All undefined parameters will default to the selected DOM element's corrosponding values.
+ * All parameters can be called and set as object properties when needed.
  * 
+ * @method object
+ * @param {Object} [originalValues] Returns original element values
+ * @param {String} [ElementID_Name] ID name of any DOM element. A new element is created if left undefined
+ * @param {Number} [xPosition] The element's distance from the left side of the screen
+ * @param {Number} [yPosition] The element's distance from the top side of the screen
+ * @param {Number} [width] The element's width
+ * @param {Number} [heigth] The element's height
+ * @param {color} [fillColor] The element's background color
+ * @param {color} [strokeColor] The element's edge color
+ * @param {color} [textColor] The element's text color
+ * @param {Number} [strokeThickness] The element's edge thickness 
+ * @example
  * 
- * 
+ * var player = new object({
+ *     x: 100,
+ *     y: 100,
+ *     w: 50,
+ *     h: 50,
+ *     f: color(0, 255, 0),
+ *     s: color(255, 0, 0),
+ *     t: 5
+ * });//creates data for a square that is green with a thick red outline.
  * 
  * 
  * 
