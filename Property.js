@@ -221,6 +221,17 @@ object.prototype.button = function(p) {
 		});
 	}else{}
 };
+
+/**
+ * Same as .button(), but different kinds events can be used.
+ * 
+ * @method mouse
+ * @param {String} [eventType] Can be set to click, tap, or over
+ * @param {Function} [ifTrue] If event occurs
+ * @param {Function} [ifFalse] If event does not occur
+ * 
+*/
+
 object.prototype.mouse = function(p) {
 	switch(p.e) {
 		case "click":
@@ -245,12 +256,34 @@ object.prototype.mouse = function(p) {
 			//not implemented yet
 			break;
 		case "over":
-			//not implemented yet
+			this.el.addEventListener("mouseover", function(e) {
+				e.preventDefault();
+				p.t();
+			});
+			this.el.addEventListener("mouseout", function(e) {
+				e.preventDefault();
+				p.f();
+			});
 			break;
 		default:
 		    break;
 	}
 };
+
+/**
+ * Allows any object to inherit or extend properties from another object.
+ * 
+ * @method inherit
+ * @param {Object} [objectToInheritFrom] The object to inherit properties from
+ * @param {Number[x, y, w, h, f, s, c*, t]} [values] For each, 0 = ignore, 1 = inherit, 2 = add to own. c is optional
+ * @example
+ * p2.inherit({
+ *     o: p1,
+ *     v: [2, 1, 0, 0, 1, 0, 2]
+ * }); //p2.x = p2.x + p1.x; p2.y = p1.y; p2.f = p1.f; p2.t = p2.t + p1.t;
+ * 
+*/
+
 object.prototype.inherit = function(p) {
 	this.x = (p.v[0] == 1) ? p.o.x : (p.v[0] == 2) ? this.x + p.o.x : this.x;
 	this.y = (p.v[1] == 1) ? p.o.y : (p.v[1] == 2) ? this.y + p.o.y : this.y;
