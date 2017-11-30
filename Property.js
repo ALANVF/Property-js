@@ -22,10 +22,21 @@ function color(red, green, blue) {
 	};
 }
 
-/*
+/**
  * @method keypress
- * 
- * 
+ * @param {Number} [keyCode] Key to be pressed
+ * @param {Function} [ifTrue] If key is pressed
+ * @param {Function} [ifFalse] If key is not pressed
+ * @example
+ * keypress({
+ *     k: 32,
+ *     t: function() {
+ *         playerObject.f = color(0, 255, 0);
+ *     },
+ *     f: function() {
+ *         playerObject.f = color(150, 150, 150);
+ *     }
+ * });
 */
 
 function keypress(p) { 
