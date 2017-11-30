@@ -28,7 +28,7 @@ function color(red, green, blue) {
  * The rgbToColor method converts "rgb(r, g, b)" to color(r, g, b).
  * 
  * @method rgbToColor
- * @param {String} [rgbString] An rgb() string
+ * @param  {String} [rgbString] An rgb() string
  * @return {color} An rgb() string converted to color()
  * @example
  * var divColor = div1.style.backgroundColor;
@@ -47,7 +47,7 @@ function rgbToColor(rgb) {
  * The colorToRgb converts color(r, g, b) to "rgb(r, g, b)".
  * 
  * @method colorToRgb
- * @param {color} [colorObject] A color() object
+ * @param  {color} [colorObject] A color() object
  * @return {String} A color() object converted to an rgb() string
  * @example
  * playerObject.f = color(0, 255, 0);
@@ -66,7 +66,7 @@ function colorToRgb(color) {
  * @method keypress
  * @param {Number} [keyCode] Key to be pressed
  * @param {Function} [ifTrue] If key is pressed
- * @param {Function} [ifFalse] If key is not pressed
+ * @param {Function} [ifFalse] If key is not pressed (optional)
  * @example
  * keypress({
  *     k: 32,
@@ -135,7 +135,7 @@ function keypress(p) {
 
 function object(p) {
 	if(p.el === undefined) {
-    	this.el = document.createElement("div");
+        this.el = document.createElement("div");
 	    this.p = p;
 	    this.x = p.x;
 	    this.y = p.y;
@@ -233,11 +233,19 @@ object.prototype.mouse = function(p) {
 				p.f();
 			});
 			break;
+		case "tap":
+			this.el.addEventListener("touchstart", function(e) {
+				p.t();
+			});
+			this.el.addEventListener("touchend", function(e) {
+				p.f();
+			});
+			break;
 		case "drag":
-			
+			//not implemented yet
 			break;
 		case "over":
-			
+			//not implemented yet
 			break;
 		default:
 		    break;
