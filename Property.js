@@ -61,7 +61,7 @@ function colorToRgb(color) {
 }
 
 /**
- *The keyPress method is a greatly simplified version of the addEventListener function.
+ * The keyPress method is a greatly simplified version of the addEventListener function.
  *
  * @method keypress
  * @param {Number} [keyCode] Key to be pressed
@@ -126,6 +126,9 @@ function keypress(p) {
  *     f: color(255, 127, 0)
  * }); //only changes the element's background color to orange
  * 
+ * player.x = 200; //sets the element's left value to 200px
+ * player.x = player.p.x; //player's x position is now back to its original value
+ * 
  * player2.x = 100; //sets the element's left value to 100px
  * 
 */
@@ -180,15 +183,43 @@ object.prototype.create = function() {
 	this.el.style.height = this.h + "px";
 	document.body.appendChild(this.el);
 };
+
+/**
+ * Turns the selected object into a clickable button.
+ * 
+ * @method button
+ * @param {Boolean} [onMobile] If true, touchstart/touchend will be used. If false or undefined, mousedown/mouseup will be used
+ * @param {Function} [ifTrue] If the object is clicked
+ * @param {Function} [ifFalse] If the object is not clicked
+ * @example
+ * player2.button({
+ *     m: true, //mobile touch events will now be used
+ *     t: function() {
+ *         player.x = 200; //player's x position is now 200px
+ *     },
+ *     f: function() {
+ *         player.x = player.p.x; //player's x position is now its original value
+ *     }
+ * });
+ * 
+*/
+
 object.prototype.button = function(p) {
-	this.el.addEventListener("touchstart", function(e) {
-		//e.preventDefault();
-		p.t();
-	});
-	this.el.addEventListener("touchend", function(e) {
-		//e.preventDefault();
-		p.f();
-	});
+	if(p.m === undefined || p.m === false) {
+	    this.el.addEventListener("mousedown", function(e) {
+	        p.t();
+	    });
+	    this.el.addEventListener("mouseup", function(e) {
+		    p.f();
+	    });
+	}else if(p.m === true) {
+		this.el.addEventListener("touchstart", function(e) {
+			p.t();
+		});
+		this.el.addEventListener("touchend", function(e) {
+			p.f();
+		});
+	}else{}
 };
 object.prototype.mouse = function(p) {
 	switch(p.e) {
