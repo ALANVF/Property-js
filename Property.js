@@ -111,7 +111,6 @@ function keypress(p) {
  * @param {color} [textColor] The element's text color
  * @param {Number} [strokeThickness] The element's edge thickness 
  * @example
- * 
  * var player = new object({
  *     x: 100,
  *     y: 100,
@@ -120,10 +119,14 @@ function keypress(p) {
  *     f: color(0, 255, 0),
  *     s: color(255, 0, 0),
  *     t: 5
- * });//creates data for a square that is green with a thick red outline.
+ * }); //creates data for a square that is green with a thick red outline.
  * 
+ * var player2 = new object({
+ *     el: "div-1",
+ *     f: color(255, 127, 0)
+ * }); //only changes the element's background color to orange
  * 
- * 
+ * player2.x = 100; //sets the element's left value to 100px
  * 
 */
 
@@ -150,6 +153,18 @@ function object(p) {
 		this.t = (p.t === undefined) ? this.el.style.borderWidth : p.t;
 	}
 }
+
+/**
+ * Nothing is actually drawn or colored until you call the .create() method on an object.
+ * 
+ * @method create
+ * @readOnly
+ * @example
+ * player.create(); //player is drawn on the canvas
+ * //because player2.create() was not called, player2's fill color and x position will not change
+ * 
+*/
+
 object.prototype.create = function() {
 	this.el.style.position = (this.el.style.positon === undefined) ? "absolute" : this.el.style.position;
 	this.el.style.backgroundColor = colorToRgb(this.f);
