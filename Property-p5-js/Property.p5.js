@@ -82,17 +82,25 @@ object.prototype.create = function(asCanvasElement) {
  * 
  * @method collide
  * @param {Object} [collidingObject] The object to collide with
- * @param {Number[xSpeed, ySpeed]} [objectSpeed] The speed the object is moving at. If undefined, will default to normal speed. Only use for custon collsion
+ * @param {Number[xSpeed, ySpeed]} [objectSpeed] The speed the object is moving at. If undefined, will default to normal speed. Only use for custom collsion
+ * @example
+ * //in this example, p1 and p2's speed = 2
+ * p1.collide({
+ *     o: p2,
+ * }); //when p1 hits p2 from any side, it will stop moving that direction
  * 
- * 
- * 
- * 
- * 
+ * p2.collide({
+ *     o: p1,
+ *     s: [2, 0]
+ * }); //when p2 hits p1 from the left or right only, it will stop moving in that direction
  * 
 */
 
 object.prototype.collide = function(p) {
 	//var cx, cy, tx, ty;
+	if(p.s === undefined) {
+		p.s = [dist(this.x + this.w/2, 0, p.o.x + p.o.w/2, 0) - (this.w + p.o.w), dist(0, this.y + this.h/2, 0, p.o.y + p.o.h/2) - (this.h + p.o.h)];
+	}
 	if(this.r === undefined && p.o.r === undefined) {
 		if(((this.x <= p.o.x + p.o.w) && (this.x + this.w >= p.o.x) && (this.y < p.o.y + p.o.h) && (this.y + this.h > p.o.y) && this.x + this.w/2 > p.o.x)) {
 			this.x += p.s[0];
@@ -107,7 +115,7 @@ object.prototype.collide = function(p) {
 			this.y -= p.s[1];
 		}
 	}
-	//So... adding circle collision didn't exactly work. If you want to, I guess you could try fixing it if you want.
+	//So... adding square/circle collision didn't exactly work. If you want to, I guess you could try fixing it if you want.
 	/*else if(this.r === undefined && p.o.r !== undefined) {
 		cx = p.o.x + p.o.r/2;
 		cy = p.o.y + p.o.r/2;
@@ -169,13 +177,13 @@ object.prototype.button = function(p) {
 	    }else{
 	    	p.f();
 	    }
-	}else{
+	}/*else{
 		if(mouseIsPressed && dist(mouseX, mouseY, this.x + this.r/2, this.y + this.r/2) <= this.r) {
 			p.t();
 		}else{
 			p.f();
 		}
-	}
+	}*/
 };
 object.prototype.mouse = function(p) {
 	if(this.r === undefined) {
@@ -204,7 +212,7 @@ object.prototype.mouse = function(p) {
 			default:
 			    break;
 		}
-	}else{
+	}/*else{
 		switch(p.e) {
 			case "click":
 				if(mouseIsPressed && dist(mouseX, mouseY, this.x + this.r/2, this.y + this.r/2) <= this.r/2 && dist(mouseX, mouseY, pmouseX, pmouseY) <= 1) {
@@ -230,5 +238,5 @@ object.prototype.mouse = function(p) {
 			default:
 			    break;
 		}
-	}
+	}*/
 };
