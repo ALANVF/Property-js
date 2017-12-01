@@ -1,8 +1,8 @@
-var p5 = require("p5");
-
-function setup() {
-	createCanvas(window.innerWidth, window.innerHeight);
-}
+/**
+ * Most things in this are the same as the original version. Pseudo-code will only be added for new/changed methods.
+ * 
+ * I had to use col() because p5 has a function called color(), but it's kinda broken.
+*/
 function col(red, green, blue) {
 	return {
 		r: red,
@@ -10,9 +10,11 @@ function col(red, green, blue) {
 		b: blue
 	};
 }
+
 function colorToRgb(color) {
 	return "rgb(" + color.r + ", " + color.g + ", " + color.b + ")";
 }
+
 function rgbToColor(rgb) {
 	var s1 = rgb.replace("rgb(", "");
 	var s2 = s1.replace(")", "");
@@ -22,13 +24,13 @@ function rgbToColor(rgb) {
 
 function object(p) {
 	if(p.el === undefined) {
-	    this.x = p.x;
-	    this.y = p.y;
-	    this.w = p.w;
-    	this.h = p.h;
-	    this.f = (p.f === undefined) ? col(255, 255, 255) : p.f;
-	    this.s = (p.s === undefined) ? col(0, 0, 0) : p.s;
-	    this.t = (p.t === undefined) ? 1 : p.t;
+		this.x = p.x;
+		this.y = p.y;
+		this.w = p.w;
+		this.h = p.h;
+		this.f = (p.f === undefined) ? col(255, 255, 255) : p.f;
+		this.s = (p.s === undefined) ? col(0, 0, 0) : p.s;
+		this.t = (p.t === undefined) ? 1 : p.t;
 	}else{
 		this.el = document.getElementById(p.el);
 		this.x = (p.x === undefined) ? this.el.style.left : p.x;
@@ -41,12 +43,17 @@ function object(p) {
 		this.t = (p.t === undefined) ? ((this.el.style.borderWidth === undefined) ? rgbToColor(this.el.style.borderWidth) : 1) : p.t;
 	}
 }
+
+/**
+ * asCanvasElement allows you to turn a DOM element into a canvas element.
+*/
+
 object.prototype.create = function(asCanvasElement) {
 	if(this.c === undefined && asCanvasElement === undefined) {
-	    fill(this.f.r, this.f.g, this.f.b);
-	    stroke(this.s.r, this.s.g, this.s.b);
-	    strokeWeight(this.t);
-	    rect(this.x, this.y, this.w, this.h);
+		fill(this.f.r, this.f.g, this.f.b);
+		stroke(this.s.r, this.s.g, this.s.b);
+		strokeWeight(this.t);
+		rect(this.x, this.y, this.w, this.h);
 	}else if(this.c !== undefined && asCanvasElement === undefined) {
 		this.el.style.position = (this.p === undefined) ? "absolute" : this.p;
 		this.el.style.borderStyle = "solid";
@@ -69,8 +76,23 @@ object.prototype.create = function(asCanvasElement) {
 		text(this.el.textContent, this.x + 1, this.y + this.h/4);
 	}else{}
 };
+
+/**
+ * Detects when the current object collides with selected object.
+ * 
+ * @method collide
+ * @param {Object} [collidingObject] The object to collide with
+ * @param {Number[xSpeed, ySpeed]} [objectSpeed] The speed the object is moving at. If undefined, will default to normal speed. Only use for custon collsion
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+*/
+
 object.prototype.collide = function(p) {
-	var cx, cy, tx, ty;
+	//var cx, cy, tx, ty;
 	if(this.r === undefined && p.o.r === undefined) {
 		if(((this.x <= p.o.x + p.o.w) && (this.x + this.w >= p.o.x) && (this.y < p.o.y + p.o.h) && (this.y + this.h > p.o.y) && this.x + this.w/2 > p.o.x)) {
 			this.x += p.s[0];
@@ -85,6 +107,7 @@ object.prototype.collide = function(p) {
 			this.y -= p.s[1];
 		}
 	}
+	//So... adding circle collision didn't exactly work. If you want to, I guess you could try fixing it if you want.
 	/*else if(this.r === undefined && p.o.r !== undefined) {
 		cx = p.o.x + p.o.r/2;
 		cy = p.o.y + p.o.r/2;
@@ -209,21 +232,3 @@ object.prototype.mouse = function(p) {
 		}
 	}
 };
-
-var div1 = new object({
-	el: "div-1",
-	w: 50,
-	h: 50,
-	f: col(0, 255, 0),
-	s: col(255, 0, 255),
-	c: col(255, 0, 0)
-});
-
-function draw() {
-	background(255, 255, 255);
-	
-	
-	
-	div1.create(true);
-	
-}
