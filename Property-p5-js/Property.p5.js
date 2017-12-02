@@ -45,16 +45,16 @@ function object(p) {
 }
 
 /**
- * Parameter asCanvasElement allows you to turn a DOM element into a canvas element.
+ * Parameter asCanvasElement allows you to draw a DOM element as a canvas object.
 */
 
-object.prototype.create = function(asCanvasElement) {
-	if(this.c === undefined && asCanvasElement === undefined) {
+object.prototype.create = function(asCanvasObject) {
+	if(this.c === undefined && asCanvasObject === undefined) {
 		fill(this.f.r, this.f.g, this.f.b);
 		stroke(this.s.r, this.s.g, this.s.b);
 		strokeWeight(this.t);
 		rect(this.x, this.y, this.w, this.h);
-	}else if(this.c !== undefined && asCanvasElement === undefined) {
+	}else if(this.c !== undefined && asCanvasObject === undefined) {
 		this.el.style.position = (this.p === undefined) ? "absolute" : this.p;
 		this.el.style.borderStyle = "solid";
 		this.el.style.backgroundColor = colorToRgb(this.f);
@@ -65,7 +65,7 @@ object.prototype.create = function(asCanvasElement) {
 		this.el.style.width = this.w + "px";
 		this.el.style.height = this.h + "px";
 		this.el.style.borderWidth = this.t + "px";
-	}else if(this.c !== undefined && asCanvasElement === true) {
+	}else if(this.c !== undefined && asCanvasObject === true) {
 		this.el.style.visibility = "hidden";
 		fill(this.f.r, this.f.g, this.f.b);
 		stroke(this.s.r, this.s.g, this.s.b);
