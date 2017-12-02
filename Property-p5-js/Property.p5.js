@@ -24,17 +24,17 @@ function rgbToColor(rgb) {
 
 function object(p) {
 	if(p.el === undefined) {
-		this.x = p.x;
-		this.y = p.y;
-		this.w = p.w;
-		this.h = p.h;
+		this.x = p.x || 0;
+		this.y = p.y || 0;
+		this.w = p.w || 0;
+		this.h = p.h || 0;
 		this.f = (p.f === undefined) ? col(255, 255, 255) : p.f;
 		this.s = (p.s === undefined) ? col(0, 0, 0) : p.s;
 		this.t = (p.t === undefined) ? 1 : p.t;
 	}else{
 		this.el = document.getElementById(p.el);
-		this.x = (p.x === undefined) ? this.el.style.left : p.x;
-		this.y = (p.y === undefined) ? this.el.style.top : p.y;
+		this.x = (p.x === undefined) ? this.el.style.left || 0 : p.x;
+		this.y = (p.y === undefined) ? this.el.style.top || 0 : p.y;
 		this.w = (p.w === undefined) ? this.el.style.width : p.w;
 		this.h = (p.h === undefined) ? this.el.style.height : p.h;
 		this.f = (p.f === undefined) ? rgbToColor(this.el.style.backgroundColor) : p.f;
@@ -45,7 +45,7 @@ function object(p) {
 }
 
 /**
- * asCanvasElement allows you to turn a DOM element into a canvas element.
+ * Parameter asCanvasElement allows you to turn a DOM element into a canvas element.
 */
 
 object.prototype.create = function(asCanvasElement) {
@@ -73,6 +73,8 @@ object.prototype.create = function(asCanvasElement) {
 		rect(this.x, this.y, this.w, this.h);
 		fill(this.c.r, this.c.g, this.c.b);
 		noStroke();
+		// something broke here...
+		textFont(this.el.style.fontFamily);
 		text(this.el.textContent, this.x + 1, this.y + this.h/4);
 	}else{}
 };
