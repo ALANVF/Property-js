@@ -73,9 +73,9 @@ object.prototype.create = function(asCanvasElement) {
 		rect(this.x, this.y, this.w, this.h);
 		fill(this.c.r, this.c.g, this.c.b);
 		noStroke();
-		// something broke here...
-		textFont(this.el.style.fontFamily);
-		text(this.el.textContent, this.x + 1, this.y + this.h/4);
+		//something broke here...
+		//textFont(this.el.style.fontFamily);
+		//text(this.el.textContent, this.x + 1, this.y + this.h/4);
 	}else{}
 };
 
@@ -172,6 +172,22 @@ object.prototype.collide = function(p) {
 		}
 	}*/
 };
+
+/**
+ * Moves any object to a location at a certain speed.
+ * 
+ * @method move
+ * @param {Number[targetX, targetY]} [targetPos] Where to move the object to
+ * @param {Number[xSpeed, ySpeed]} [moveSpeed] The speed to move the object at
+ * @example
+ * if(keyIsPressed && keyCode == 32) {
+ *     player.move({
+ *        t: [200, 300], 
+ *        s: [2, 3]
+ *     }); //when the spacebar is pressed, player will move to (200, 300) with a speed of xs = 2, ys = 3
+ * }
+ * 
+*/
 
 object.prototype.move = function(p) {
 	if(this.x < p.t[0]) {
