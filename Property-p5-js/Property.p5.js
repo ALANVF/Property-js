@@ -170,6 +170,24 @@ object.prototype.collide = function(p) {
 		}
 	}*/
 };
+
+object.prototype.move = function(p) {
+	if(this.x < p.t[0]) {
+		this.x += p.s[0];
+	}else if(this.x > p.t[0]) {
+		this.x -= p.s[0];
+	}else if(dist(this.x, 0, p.t[0], 0) <= p.s[0]) {
+		p.s[0] = 0;
+	}
+	if(this.y < p.t[1]) {
+		this.y += p.s[1];
+	}else if(this.y > p.t[1]) {
+		this.y -= p.s[1];
+	}else if(dist(0, this.y, 0, p.t[1]) <= p.s[1]) {
+		p.s[1] = 0;
+	}
+};
+
 object.prototype.button = function(p) {
 	if(this.r === undefined) {
 	    if(mouseIsPressed && mouseX >= this.x && mouseX <= this.x + this.w && mouseY >= this.y && mouseY <= this.y + this.h) {
