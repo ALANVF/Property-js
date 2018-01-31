@@ -1,10 +1,3 @@
-var p5 = require("p5");
-//var cv;
-function setup() {
-	createCanvas(500, 500);
-	cv = p5.instance._elements[0].elt;
-	cv.style.visibility = "visible";
-}
 function col(red, green, blue) {
 	if(green === undefined && blue === undefined) {
 		return {
